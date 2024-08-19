@@ -48,9 +48,9 @@ class Server:
             Tuple[int, int]: A tuple containing the start and end indices
             for the dataset.
         """
-        start_index = (page - 1) * page_size
-        end_index = start_index + page_size
-        return start_index, end_index
+        start = (page - 1) * page_size
+        end = start + page_size
+        return start, end
 
     def dataset(self) -> List[List]:
         """
@@ -93,10 +93,10 @@ class Server:
         assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page_size > 0
 
-        start_index, end_index = self.index_range(page, page_size)
+        start, end = self.index_range(page, page_size)
         dataset = self.dataset()
-        
+ 
         try:
-            return dataset[start_index:end_index]
+            return dataset[start:end]
         except IndexError:
             return []
