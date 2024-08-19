@@ -87,8 +87,8 @@ class Server:
         Raises:
             AssertionError: If `page` or `page_size` is not a positive integer.
         """
-        assert isinstance(page, int) and page > 0
-        assert isinstance(page_size, int) and page_size > 0
+        assert all(isinstance(arg, int) for arg in (page, page_size))
+        assert all(arg > 0 for arg in (page, page_size))
 
         start, end = self.index_range(page, page_size)
         dataset = self.dataset()
