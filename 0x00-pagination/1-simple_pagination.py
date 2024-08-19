@@ -25,6 +25,7 @@ from typing import List, Tuple
 
 
 class Server:
+    """Server: Handles the loading and pagination of the baby names dataset."""
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
@@ -68,7 +69,7 @@ class Server:
         """
         start = (page - 1) * page_size
         end = start + page_size
-        return start, end
+        return (start, end)
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """
