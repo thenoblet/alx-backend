@@ -35,23 +35,6 @@ class Server:
         """
         self.__dataset = None
 
-    @staticmethod
-    def index_range(page: int, page_size: int) -> Tuple[int, int]:
-        """
-        Computes the start and end indices for a given page and page size.
-
-        Args:
-            page (int): The page number (1-indexed).
-            page_size (int): The number of items per page.
-
-        Returns:
-            Tuple[int, int]: A tuple containing the start and end indices
-            for the dataset.
-        """
-        start = (page - 1) * page_size
-        end = start + page_size
-        return start, end
-
     def dataset(self) -> List[List]:
         """
         Returns the cached dataset.
@@ -70,6 +53,23 @@ class Server:
             self.__dataset = dataset[1:]
 
         return self.__dataset
+
+    @staticmethod
+    def index_range(page: int, page_size: int) -> Tuple[int, int]:
+        """
+        Computes the start and end indices for a given page and page size.
+
+        Args:
+            page (int): The page number (1-indexed).
+            page_size (int): The number of items per page.
+
+        Returns:
+            Tuple[int, int]: A tuple containing the start and end indices
+            for the dataset.
+        """
+        start = (page - 1) * page_size
+        end = start + page_size
+        return start, end
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """
@@ -95,7 +95,7 @@ class Server:
 
         start, end = self.index_range(page, page_size)
         dataset = self.dataset()
- 
+
         try:
             return dataset[start:end]
         except IndexError:
