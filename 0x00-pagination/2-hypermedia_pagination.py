@@ -17,6 +17,8 @@ Functions:
       start and end indices for pagination.
     - get_page(page: int, page_size: int) -> List[List]: Retrieves a specific
       page of data from the dataset.
+    - get_hyper(page: int, page_size: int) -> dict: Retrieves a specific page
+      of data along with hypermedia metadata.
 """
 
 import csv
@@ -123,14 +125,12 @@ class Server:
                 - prev_page: The previous page number if it exists, else None.
                 - total_pages: The total number of pages in the dataset.
         """
-        assert isinstance(page, int) and page > 0
-        assert isinstance(page_size, int) and page_size > 0
-
         data = self.get_page(page, page_size)
         total_pages = (len(self.dataset()) + page_size - 1) // page_size
 
         metadata = {
-                "page_size": len(data),
+                "page_size": (page_size if page_size <= len(data) else
+                              len(data)),
                 "page": page,
                 "data": data,
                 "next_page": page + 1 if page < total_pages else None,
