@@ -129,8 +129,7 @@ class Server:
         total_pages = (len(self.dataset()) + page_size - 1) // page_size
 
         metadata = {
-                "page_size": (page_size if page_size <= len(data) else
-                              len(data)),
+                "page_size": len(data),
                 "page": page,
                 "data": data,
                 "next_page": page + 1 if page < total_pages else None,
